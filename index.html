@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <!-- Library for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- QR Code Generation Library -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
     <style>
@@ -77,22 +79,15 @@
         
         /* Print styles */
         @media print {
-            body {
-                background: none;
-            }
-            .no-print {
-                display: none;
-            }
-            .certificate-container {
-                box-shadow: none;
-                margin: 0 auto;
-            }
+            body { background: none; }
+            .no-print { display: none; }
+            .certificate-container { box-shadow: none; margin: 0 auto; }
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
 
-    <div class="certificate-container">
+    <div class="certificate-container" id="certificate">
         <!-- Ornate SVG Border -->
         <svg class="certificate-border" width="100%" height="100%" viewBox="0 0 850 600" preserveAspectRatio="none">
             <rect x="10" y="10" width="830" height="580" fill="none" stroke="#d4af37" stroke-width="3" />
@@ -160,17 +155,35 @@
     </div>
 
     <div class="text-center mt-6 no-print">
-        <button onclick="window.print()" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full hover:bg-blue-700 transition-colors shadow-md">
+        <button onclick="window.print()" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full hover:bg-blue-700 transition-colors shadow-md mx-2">
             Print Certificate
+        </button>
+        <button id="download-pdf" class="bg-gray-700 text-white font-bold py-2 px-6 rounded-full hover:bg-gray-800 transition-colors shadow-md mx-2">
+            Download as PDF
         </button>
     </div>
     
     <script>
         window.addEventListener('load', () => {
+            // QR Code Generation
             const qrCanvas = document.getElementById('qr-code');
             const verificationUrl = 'https://drxearuingam.github.io/YH-BestPhysician/';
             QRCode.toCanvas(qrCanvas, verificationUrl, { width: 64, margin: 1 }, function (error) {
                 if (error) console.error(error);
+            });
+
+            // PDF Download
+            const downloadButton = document.getElementById('download-pdf');
+            downloadButton.addEventListener('click', () => {
+                const element = document.getElementById('certificate');
+                const opt = {
+                    margin:       0,
+                    filename:     'Certificate-Dr-Raaju-Kalal.pdf',
+                    image:        { type: 'jpeg', quality: 1.0 },
+                    html2canvas:  { scale: 4, useCORS: true },
+                    jsPDF:        { unit: 'in', format: 'a4', orientation: 'landscape' }
+                };
+                html2pdf().set(opt).from(element).save();
             });
         });
     </script>
