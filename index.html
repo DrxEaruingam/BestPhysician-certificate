@@ -142,8 +142,8 @@
                         </svg>
                     </div>
                     
-                    <div class="text-center w-1/3 flex flex-col items-center">
-                        <canvas id="qr-code" class="w-[10vw] h-[10vw] max-w-16 max-h-16"></canvas>
+                    <div class="w-[18vw] h-[18vw] max-w-28 max-h-28 flex flex-col items-center justify-center">
+                        <canvas id="qr-code" class="w-full h-full"></canvas>
                         <p class="text-[clamp(0.5rem,1.5vw,0.75rem)] text-gray-400 mt-1">Scan to Verify</p>
                     </div>
                 </footer>
@@ -165,7 +165,7 @@
             // QR Code Generation
             const qrCanvas = document.getElementById('qr-code');
             const verificationUrl = 'https://drxearuingam.github.io/YH-BestPhysician/';
-            QRCode.toCanvas(qrCanvas, verificationUrl, { width: 64, margin: 1 }, function (error) {
+            QRCode.toCanvas(qrCanvas, verificationUrl, { width: 112, margin: 1 }, function (error) {
                 if (error) console.error(error);
             });
 
@@ -178,7 +178,7 @@
                     filename:     'Certificate-Dr-Raaju-Kalal.pdf',
                     image:        { type: 'jpeg', quality: 1.0 },
                     html2canvas:  { scale: 3 },
-                    jsPDF:        { unit: 'in', format: [11, 8.5], orientation: 'landscape' }
+                    jsPDF:        { unit: 'in', format: [11.8, 8.34], orientation: 'landscape' }
                 };
                 html2pdf().set(opt).from(element).save();
             });
