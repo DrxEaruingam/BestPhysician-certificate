@@ -142,7 +142,7 @@
                         </svg>
                     </div>
                     
-                    <div class="w-[12vw] h-[12vw] max-w-20 max-h-20 flex flex-col items-center justify-center">
+                    <div class="w-[10vw] h-[10vw] max-w-16 max-h-16 flex flex-col items-center justify-center">
                         <canvas id="qr-code" class="w-full h-full"></canvas>
                         <p class="text-[clamp(0.5rem,1.5vw,0.75rem)] text-gray-400 mt-1">Scan to Verify</p>
                     </div>
@@ -165,7 +165,7 @@
             // QR Code Generation
             const qrCanvas = document.getElementById('qr-code');
             const verificationUrl = 'https://drxearuingam.github.io/YH-BestPhysician/';
-            QRCode.toCanvas(qrCanvas, verificationUrl, { width: 80, margin: 1 }, function (error) {
+            QRCode.toCanvas(qrCanvas, verificationUrl, { width: 64, margin: 1 }, function (error) {
                 if (error) console.error(error);
             });
 
